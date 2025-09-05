@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Noticing Exercise</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 2rem; line-height: 1.6; }
+    .hidden { display: none; }
+    button { margin-top: 1rem; padding: 0.5rem 1rem; }
+  </style>
+</head>
+<body>
+
+  <h1>🌿 Noticing Exercise</h1>
+  <div id="exercise"></div>
+
+  <h2>Step 1: Take a picture</h2>
+  <input type="file" accept="image/*" capture="environment" id="cameraInput">
+  <br><br>
+  <img id="preview" class="hidden" width="300">
+
+  <div id="reflection" class="hidden">
+    <h2>Step 2: Reflection Prompt</h2>
+    <p id="prompt"></p>
+  </div>
+
+  <script>
+    // Read URL parameter
+    const params = new URLSearchParams(window.location.search);
+    const exercise = params.get("exercise") || "default";
+
+    // Exercise instructions (add more if needed)
+    const exercises = {
+      tree: "Look closely at a tree. Take a picture of it and notice 5 different shapes.",
+      bush: "Sit next to a bush. Observe everything within 1m. Take a picture of something interesting.",
+      walk: "Walk 20 meters in the park. Capture something you would normally overlook.",
+      default: "Notice your surroundings. Take a picture of something that catches your eye."
+    };
+
+    document.getElementById("exercise").innerText = exercises[exercise];
+
+    // Reflection prompts
+    const prompts = [
+      "Why did you choose this object?",
+      "What details surprised you?",
+      "How did this make you feel?",
+      "What might you notice next time?"
+    ];
+
+    // Handle camera input
+    const cameraInput = document.getElementById("cameraInput");
+    const preview = document.getElementById("preview");
+    const reflection = document.getElementById("reflection");
+    const prompt = document.getElementById("prompt");
+
+    cameraInput.addEventListener("change", event => {
+      const file = event.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = e => {
+          preview.src = e.target.result;
+          preview.classList.remove("hidden");
+
+          // Show random reflection prompt
+          const randomPrompt = prompts[Math.floor(Math.random() * prompts.length)];
+          prompt.innerText = randomPrompt;
+          reflection.classList.remove("hidden");
+        };
+        reader.readAsDataURL(file);
+      }
+    });
+  </script>
+
+</body>
+</html>
+
