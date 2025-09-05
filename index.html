@@ -25,26 +25,28 @@
   </div>
 
   <script>
-    // Read URL parameter
+    // Read URL parameters
     const params = new URLSearchParams(window.location.search);
     const exercise = params.get("exercise") || "default";
+    const subject = params.get("subject") || "something";
+    const challenge = params.get("challenge") || "pay attention";
 
-    // Exercise instructions (add more if needed)
+    // Exercise instructions using variables
     const exercises = {
-      tree: "Look closely at a tree. Take a picture of it and notice 5 different shapes.",
-      bush: "Sit next to a bush. Observe everything within 1m. Take a picture of something interesting.",
-      walk: "Walk 20 meters in the park. Capture something you would normally overlook.",
-      default: "Notice your surroundings. Take a picture of something that catches your eye."
+      tree: `Look closely at a tree. Notice ${subject} and ${challenge}.`,
+      bush: `Sit next to a bush. Observe ${subject} and ${challenge}.`,
+      walk: `Walk 20 meters in the park. Capture ${subject} and ${challenge}.`,
+      default: `Notice your surroundings. Observe ${subject} and ${challenge}.`
     };
 
     document.getElementById("exercise").innerText = exercises[exercise];
 
-    // Reflection prompts
+    // Reflection prompts using variables
     const prompts = [
-      "Why did you choose this object?",
-      "What details surprised you?",
-      "How did this make you feel?",
-      "What might you notice next time?"
+      `Why did you choose this ${subject}?`,
+      `What details about the ${subject} surprised you?`,
+      `How did focusing on ${challenge} make you feel?`,
+      `What might you notice next time about ${subject}?`
     ];
 
     // Handle camera input
